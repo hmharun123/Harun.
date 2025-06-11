@@ -1,0 +1,129 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Md. Harun - Gallery</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0 15px;
+      background: #f7f7f7;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      margin-top: 30px;
+      margin-bottom: 20px;
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
+      gap: 15px;
+      max-width: 900px;
+      margin: 0 auto 40px auto;
+    }
+    .gallery-grid img {
+      width: 100%;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+    .gallery-grid img:hover {
+      transform: scale(1.05);
+    }
+    /* Fullscreen overlay */
+    #overlay {
+      position: fixed;
+      top:0; left:0; right:0; bottom:0;
+      background: rgba(0,0,0,0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+    #overlay img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 10px;
+      box-shadow: 0 0 30px #000;
+    }
+    #closeBtn {
+      position: fixed;
+      top: 20px;
+      right: 30px;
+      font-size: 30px;
+      color: white;
+      cursor: pointer;
+      z-index: 10000;
+      font-weight: bold;
+      user-select: none;
+    }
+    /* Back button */
+    #backHome {
+      display: block;
+      width: max-content;
+      margin: 20px auto;
+      padding: 10px 20px;
+      background-color: #1dbf73;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: 600;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      text-align: center;
+      transition: background-color 0.3s ease;
+    }
+    #backHome:hover {
+      background-color: #17a05a;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Md. Harun's Gallery</h1>
+
+  <div class="gallery-grid">
+    <img src="gallery/image1.jpg" alt="Gallery Image 1" loading="lazy" />
+    <img src="gallery/image2.jpg" alt="Gallery Image 2" loading="lazy" />
+    <img src="gallery/image3.jpg" alt="Gallery Image 3" loading="lazy" />
+    <img src="gallery/image4.jpg" alt="Gallery Image 4" loading="lazy" />
+    <img src="gallery/image5.jpg" alt="Gallery Image 5" loading="lazy" />
+    <img src="gallery/image6.jpg" alt="Gallery Image 6" loading="lazy" />
+  </div>
+
+  <a href="index.html" id="backHome">← Back to Home</a>
+
+  <!-- Fullscreen Image Overlay -->
+  <div id="overlay">
+    <span id="closeBtn" onclick="closeOverlay()">×</span>
+    <img id="fullImage" src="" alt="Full Size Image" />
+  </div>
+
+  <script>
+    const overlay = document.getElementById('overlay');
+    const fullImage = document.getElementById('fullImage');
+
+    document.querySelectorAll('.gallery-grid img').forEach(img => {
+      img.addEventListener('click', () => {
+        fullImage.src = img.src;
+        overlay.style.display = 'flex';
+      });
+    });
+
+    function closeOverlay() {
+      overlay.style.display = 'none';
+      fullImage.src = '';
+    }
+
+    overlay.addEventListener('click', e => {
+      if (e.target === overlay) {
+        closeOverlay();
+      }
+    });
+  </script>
+
+</body>
+</html>
